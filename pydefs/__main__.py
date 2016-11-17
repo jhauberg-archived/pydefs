@@ -24,11 +24,9 @@ Options:
   --version    Show program version
 """
 
-import os
-import re
-
 from docopt import docopt
 
+from pydefs.parse import parse_path
 from pydefs.version import __version__
 
 
@@ -40,7 +38,7 @@ def main():
     paths = arguments['<module>']
 
     for path in paths:
-        pass
+        parse_path(path)
 
 
 if __name__ == '__main__':
