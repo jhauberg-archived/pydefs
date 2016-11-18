@@ -44,10 +44,11 @@ def parse_file(filepath):
 
     definitions = defs(parse_ast(filepath))
 
-    last_line_number = max(definitions, key=int)
-    zero_pad_length = len(str(last_line_number))
+    if len(definitions) > 0:
+        last_line_number = max(definitions, key=int)
+        zero_pad_length = len(str(last_line_number))
 
-    print_definitions(definitions, zero_pad_length)
+        print_definitions(definitions, zero_pad_length)
 
 
 def print_definitions(definitions, zero_pad_length):
