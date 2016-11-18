@@ -40,11 +40,13 @@ def parse_path(absolute_path):
 
 
 def parse_file(filepath):
-    print(filepath)
-
     definitions = defs(parse_ast(filepath))
+    definition_count = len(definitions)
 
-    if len(definitions) > 0:
+    print('{0} ({1} {2})'.format(
+        filepath, definition_count, 'definition' if definition_count == 1 else 'definitions'))
+
+    if definition_count > 0:
         last_line_number = max(definitions, key=int)
         zero_pad_length = len(str(last_line_number))
 
