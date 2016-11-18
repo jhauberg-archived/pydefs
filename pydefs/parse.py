@@ -24,7 +24,7 @@ def defs(tree):
 
             definitions[node.lineno] = name
 
-    return sorted(definitions.items())
+    return definitions
 
 
 def parse_ast(filepath):
@@ -42,8 +42,17 @@ def parse_path(absolute_path):
 def parse_file(filepath):
     print(filepath)
 
-    for definition in defs(parse_ast(filepath)):
-        print(definition)
+    definitions = defs(parse_ast(filepath))
+
+    last_line_number = max(definitions, key=int)
+    zero_pad_length = len(str(last_line_number))
+
+    print_definitions(definitions, zero_pad_length)
+
+
+def print_definitions(definitions, zero_pad_length):
+    for line_number, definition in sorted(definitions.items()):
+        print("{0:0{width}d}: {1}".format(line_number, definition, width=zero_pad_length))
 
 
 def parse_directory(directory_path):
