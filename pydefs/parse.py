@@ -34,7 +34,8 @@ def parse_ast(filepath):
 
 def parse_path(absolute_path):
     if os.path.isfile(absolute_path):
-        parse_file(absolute_path)
+        if absolute_path.endswith('.py'):
+            parse_file(absolute_path)
     else:
         parse_directory(absolute_path)
 
@@ -53,17 +54,15 @@ def parse_file(filepath):
         print_definitions(definitions, zero_pad_length)
 
 
-def print_definitions(definitions, zero_pad_length):
-    for line_number, definition in sorted(definitions.items()):
-        print("{0:0{width}d}: {1}".format(line_number, definition, width=zero_pad_length))
-
-
 def parse_directory(directory_path):
     print(directory_path)
 
-    filenames = [filename for filename in os.listdir(directory_path) if filename.endswith('.py')]
-
-    for filename in filenames:
+    for filename in os.listdir(directory_path):
         filepath = os.path.join(directory_path, filename)
 
-        parse_file(filepath)
+        parse_path(filepath)
+
+
+def print_definitions(definitions, zero_pad_length):
+    for line_number, definition in sorted(definitions.items()):
+        print("{0:0{width}d}: {1}".format(line_number, definition, width=zero_pad_length))
